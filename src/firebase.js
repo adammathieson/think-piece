@@ -16,6 +16,10 @@ var firebaseConfig = {
 
     export const firestore = firebase.firestore()
 
+    // likely deprecated/fixed issue – breaks app when used
+    // const settings = { timestampInSnapshots: true }
+    // firestore.settings(settings)
+
     window.firebase = firebase
 
     export default firebase
