@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
+
 var firebaseConfig = {
         apiKey: "AIzaSyCmy58iUi7c-8helLRJ3EIuJioSeR2v0as",
         authDomain: "think-piece-tut.firebaseapp.com",
