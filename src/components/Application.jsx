@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 
-import { firestore } from '../firebase'
+import { firestore, auth } from '../firebase'
 import { collectIdsAndDocs } from '../utilities';
 
 import Posts from './Posts';
+import Authentication from './Authentication'
+
 console.log(collectIdsAndDocs)
 
 class Application extends Component {
   state = {
-    posts: []
+    posts: [],
+    user: null,
   };
 
-  unsubscribe = null
+  unsubscribeFromFirestore = null
+  unsubscribeFromAuth = null
 
   componentDidMount = async () => {
     // onSnapshot takes fn callback for when data changes/ returns cleanup fn
@@ -23,7 +27,12 @@ class Application extends Component {
 
     // const posts = snapshot.docs.map(collectIdsAndDocs)
     // this.setState({ posts })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+      console.log(user)
+      this.setState({ user })
+    })
   }
+
 
   componentWillUnmount = () => {
     // calls the returned cleanup fn 
@@ -57,11 +66,12 @@ class Application extends Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, user } = this.state;
 
     return (
       <main className="Application">
         <h1>Think Piece</h1>
+        <Authentication user={user}/>
         <Posts posts={posts}/>
       </main>
     );
