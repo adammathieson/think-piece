@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firestore } from '../firebase';
+import { auth, firestore } from '../firebase';
 
 class AddPost extends Component {
   state = { title: '', content: '' };
@@ -15,16 +15,17 @@ class AddPost extends Component {
     // .add() called to make a post on refactor
     // const { onCreate } = this.props;
     const { title, content } = this.state;
+    const { uid, displayName, email, photoURL } = auth.currentUser || {}
 
     const post = {
       // id: Date.now().toString(),
       title,
       content,
       user: {
-        uid: '1111',
-        displayName: 'Steve Kinney',
-        email: 'steve@mailinator.com',
-        photoURL: 'http://placekitten.com/g/200/200',
+        uid,
+        displayName,
+        email,
+        photoURL,
       },
       favorites: 0,
       comments: 0,

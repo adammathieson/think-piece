@@ -6,7 +6,7 @@ import { firestore } from '../firebase'
 
 const Post = ({ id, title, content, user, createdAt, stars, comments }) => {
   const postRef = firestore.doc(`posts/${id}`)
-  const remove = () => postRef.delete()
+  const remove = () => { postRef.delete() }
   const star = () => postRef.update({stars: stars + 1})
 
 

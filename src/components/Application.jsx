@@ -6,7 +6,7 @@ import { collectIdsAndDocs } from '../utilities';
 import Posts from './Posts';
 import Authentication from './Authentication'
 
-console.log(collectIdsAndDocs)
+// console.log(collectIdsAndDocs)
 
 class Application extends Component {
   state = {
@@ -28,7 +28,7 @@ class Application extends Component {
     // const posts = snapshot.docs.map(collectIdsAndDocs)
     // this.setState({ posts })
     this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      console.log(user)
+      // console.log(user)
       this.setState({ user })
     })
   }
