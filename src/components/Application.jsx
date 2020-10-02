@@ -11,11 +11,23 @@ class Application extends Component {
     posts: []
   };
 
-  componentDidMount = async () => {
-    const snapshot = await firestore.collection('posts').get()
+  unsubscribe = null
 
-    const posts = snapshot.docs.map(collectIdsAndDocs)
-    this.setState({posts})
+  componentDidMount = async () => {
+    // onSnapshot takes fn callback for when data changes/ returns cleanup fn
+    this.unsubscribe = firestore.collection('posts').onSnapshot(snapshot => {
+      const posts = snapshot.docs.map(collectIdsAndDocs)
+      this.setState({ posts })
+    })
+    // const snapshot = await firestore.collection('posts').get()
+
+    // const posts = snapshot.docs.map(collectIdsAndDocs)
+    // this.setState({ posts })
+  }
+
+  componentWillUnmount = () => {
+    // calls the returned cleanup fn 
+    this.unsubscribe()
   }
 
   handleCreate =  async post => {
@@ -26,7 +38,7 @@ class Application extends Component {
 
     const newPost = collectIdsAndDocs(doc)
 
-    this.setState({ posts: [newPost, ...posts] });
+    this.setState({ posts: [newPost, ...posts] })
   };
 
   handleRemove = async id => {
