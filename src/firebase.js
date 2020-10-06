@@ -29,4 +29,43 @@ var firebaseConfig = {
 
     window.firebase = firebase
 
+    export const createUserProfileDocument = async (user, additionalData) => {
+        if (!user) return
+
+        // Get a reference in the database
+        const userRef = firestore.doc(`users/${user.uid}`)
+
+        // Fetch doc from that location
+        const snapshot = await userRef.get()
+
+        if (!snapshot.exists) {
+            const { displayName, email, photoUrl } = user
+            const createdAt = new Date()
+            try {
+                await userRef.set({
+                    displayName,
+                    email,
+                    photoUrl,
+                    createdAt,
+                    ...additionalData,
+                })
+            } catch (error) {
+                console.error('Error creating user', error.message)
+            }
+        }
+
+        return getUserDocument(user.uid)
+    } 
+
+    export const getUserDocument = async (uid) => {
+        if (!uid) return null
+        try {
+            const userDocument = await firestore.collection('users').doc(uid).get()
+
+            return { uid, ...userDocument.data()}
+        } catch (error) {
+            console.error('Error fetching user', error.message)
+        }
+    }
+
     export default firebase
