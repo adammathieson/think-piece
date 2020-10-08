@@ -23,7 +23,7 @@ var firebaseConfig = {
     export const signInWithGoogle = () => auth.signInWithPopup(provider)
     export const signOut = () => auth.signOut()
 
-    // likely deprecated/fixed issue – breaks app when used
+    // breaks when used – – – – –
     // const settings = { timestampInSnapshots: true }
     // firestore.settings(settings)
 
