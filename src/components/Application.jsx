@@ -23,10 +23,7 @@ class Application extends Component {
       const posts = snapshot.docs.map(collectIdsAndDocs)
       this.setState({ posts })
     })
-    // const snapshot = await firestore.collection('posts').get()
-
-    // const posts = snapshot.docs.map(collectIdsAndDocs)
-    // this.setState({ posts })
+    
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       const user = await createUserProfileDocument(userAuth)
       console.log(user)
