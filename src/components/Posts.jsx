@@ -2,13 +2,15 @@ import React from 'react'
 import Post from './Post';
 import AddPost from './AddPost';
 
-const Posts = ({ posts, onCreate }) => {
+import { PostContext } from '../providers/PostProvider'
+
+const Posts = ({ createdAt }) => {
   return (
     <section className="Posts">
-      <AddPost onCreate={onCreate} />
-      {posts.map(post => (
-        <Post {...post} key={post.id} />
-      ))}
+      <AddPost/>
+      <PostContext.Consumer>
+        {posts => posts.map(post => <Post {...post} key={post.id} />)}
+      </PostContext.Consumer>
     </section>
   )
 }

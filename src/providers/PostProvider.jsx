@@ -30,3 +30,5 @@ class PostProvider extends Component {
         )
     }
 }
+
+export default PostProvider

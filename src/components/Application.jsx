@@ -19,11 +19,11 @@ class Application extends Component {
 
   componentDidMount = async () => {
     // onSnapshot takes fn callback for when data changes/ returns cleanup fn
-    this.unsubscribe = firestore.collection('posts').onSnapshot(snapshot => {
+    this.unsubscribeFromFireStore = firestore.collection('posts').onSnapshot(snapshot => {
       const posts = snapshot.docs.map(collectIdsAndDocs)
       this.setState({ posts })
     })
-    
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       const user = await createUserProfileDocument(userAuth)
       console.log(user)
@@ -34,7 +34,7 @@ class Application extends Component {
 
   componentWillUnmount = () => {
     // calls the returned cleanup fn 
-    this.unsubscribe()
+    this.unsubscribeFromFireStore()
   }
 
   handleCreate =  async post => {
