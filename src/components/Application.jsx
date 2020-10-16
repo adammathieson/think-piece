@@ -14,15 +14,14 @@ class Application extends Component {
     user: null,
   };
 
-  unsubscribeFromFirestore = null
   unsubscribeFromAuth = null
 
   componentDidMount = async () => {
     // onSnapshot takes fn callback for when data changes/ returns cleanup fn
-    this.unsubscribeFromFireStore = firestore.collection('posts').onSnapshot(snapshot => {
-      const posts = snapshot.docs.map(collectIdsAndDocs)
-      this.setState({ posts })
-    })
+    // this.unsubscribeFromFireStore = firestore.collection('posts').onSnapshot(snapshot => {
+    //   const posts = snapshot.docs.map(collectIdsAndDocs)
+    //   this.setState({ posts })
+    // })
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       const user = await createUserProfileDocument(userAuth)
@@ -34,7 +33,7 @@ class Application extends Component {
 
   componentWillUnmount = () => {
     // calls the returned cleanup fn 
-    this.unsubscribeFromFireStore()
+    this.unsubscribeFromAuth()
   }
 
   handleCreate =  async post => {
@@ -64,13 +63,13 @@ class Application extends Component {
   }
 
   render() {
-    const { posts, user } = this.state;
+    const { user } = this.state;
 
     return (
       <main className="Application">
         <h1>Think Piece</h1>
         <Authentication user={user}/>
-        <Posts posts={posts}/>
+        <Posts />
       </main>
     );
   }
