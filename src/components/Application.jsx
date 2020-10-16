@@ -1,40 +1,12 @@
 import React, { Component } from 'react';
 
-import { firestore, auth, createUserProfileDocument } from '../firebase'
-import { collectIdsAndDocs } from '../utilities';
-
 import Posts from './Posts';
 import Authentication from './Authentication'
 
 // console.log(collectIdsAndDocs)
 
 class Application extends Component {
-  state = {
-    posts: [],
-    user: null,
-  };
-
-  unsubscribeFromAuth = null
-
-  componentDidMount = async () => {
-    // onSnapshot takes fn callback for when data changes/ returns cleanup fn
-    // this.unsubscribeFromFireStore = firestore.collection('posts').onSnapshot(snapshot => {
-    //   const posts = snapshot.docs.map(collectIdsAndDocs)
-    //   this.setState({ posts })
-    // })
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      const user = await createUserProfileDocument(userAuth)
-      console.log(user)
-      this.setState({ user })
-    })
-  }
-
-
-  componentWillUnmount = () => {
-    // calls the returned cleanup fn 
-    this.unsubscribeFromAuth()
-  }
+  
 
   handleCreate =  async post => {
     // const { posts } = this.state;
@@ -47,7 +19,7 @@ class Application extends Component {
     // this.setState({ posts: [newPost, ...posts] })
 
     // With refactor ↓ this is all that is needed for updated
-    firestore.collection('posts').add(post)
+    // firestore.collection('posts').add(post)
   };
 
   handleRemove = async id => {
@@ -59,16 +31,15 @@ class Application extends Component {
     // this.setState({ posts })
 
     // With refactor ↓ this is all that is needed for updated
-    firestore.doc(`posts/${id}`).delete()
+    // firestore.doc(`posts/${id}`).delete()
   }
 
   render() {
-    const { user } = this.state;
 
     return (
       <main className="Application">
         <h1>Think Piece</h1>
-        <Authentication user={user}/>
+        <Authentication />
         <Posts />
       </main>
     );
