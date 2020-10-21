@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import UserProvider from '../providers/UserProvider';
+import { UserContext } from '../providers/UserProvider';
 
 import CurrentUser from './CurrentUser';
 import SignInAndSignUp from './SignInAndSignUp';
 
 const Authentication = ({ loading }) => {
-  const user = useContext(UserProvider)
+  const user = useContext(UserContext)
   if (loading) return null;
 
   return <div>
