@@ -30,6 +30,7 @@ var firebaseConfig = {
     window.firebase = firebase
 
     export const createUserProfileDocument = async (user, additionalData) => {
+        console.log('------->',{user})
         if (!user) return
 
         // Get a reference in the database
@@ -40,7 +41,6 @@ var firebaseConfig = {
 
         if (!snapshot.exists) {
             const { displayName, email, photoURL } = user
-            // console.log('------->',{user})
             const createdAt = new Date()
             try {
                 await userRef.set({
