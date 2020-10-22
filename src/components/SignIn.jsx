@@ -17,15 +17,15 @@ class SignIn extends Component {
     // this.setState({ email: '', password: '' });
     const { email, password } = this.state
 
-    try {
-      const { user } = await auth.signInWithEmailAndPassword(email, password)
-      console.log('signIn--->', user)
+    // try {
+    //   const { user } = await auth.signInWithEmailAndPassword(email, password)
+    //   console.log('signIn--->', user)
 
-      // getUserDocument(user.uid)
+    //   // getUserDocument(user.uid)
       
-    } catch (error) {
-      console.log(error)
-    }
+    // } catch (error) {
+    //   console.log(error)
+    // }
   };
 
   render() {
