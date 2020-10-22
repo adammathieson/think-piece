@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { auth, createUserProfileDocument, signInWithGoogle } from '../firebase'
+import { auth, createUserProfileDocument, getUserDocument, signInWithGoogle } from '../firebase'
 
 class SignIn extends Component {
   state = { email: '', password: '' };
@@ -18,9 +18,10 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     try {
-      const { user } = await auth.signInAndRetrieveDataWithEmailAndPassword(email, password)
+      const { user } = await auth.signInWithEmailAndPassword(email, password)
+      console.log('signIn--->', user)
 
-      createUserProfileDocument(user)
+      // getUserDocument(user.uid)
       
     } catch (error) {
       console.log(error)

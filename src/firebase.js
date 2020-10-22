@@ -40,6 +40,7 @@ var firebaseConfig = {
         const snapshot = await userRef.get()
 
         if (!snapshot.exists) {
+            console.log('does no exist!!!')
             const { displayName, email, photoURL } = user
             const createdAt = new Date()
             try {
