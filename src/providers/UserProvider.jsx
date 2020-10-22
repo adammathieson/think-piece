@@ -13,16 +13,16 @@ class UserProvider extends Component {
     unsubscribeFromAuth = null
     
     componentDidMount = async () => {
-        // onSnapshot takes fn callback for when data changes/ returns cleanup fn
-        // this.unsubscribeFromFireStore = firestore.collection('posts').onSnapshot(snapshot => {
-        //   const posts = snapshot.docs.map(collectIdsAndDocs)
-        //   this.setState({ posts })
-        // })
     
         this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-            const user = await createUserProfileDocument(userAuth)
-            console.log('fires createUserProfileDocument on db state change', user)
-            this.setState({ user })
+            if (userAuth) {
+                const userRef = await createUserProfileDocument(userAuth)
+                userRef.onSnapshot(snapshot => {
+                    this.setState({user: {uid: snapshot.id, ...snapshot.data()}})
+                })
+            }
+            // console.log('fires createUserProfileDocument on db state change', user)
+            this.setState({ user: userAuth })
         })
     }
     
@@ -36,9 +36,7 @@ class UserProvider extends Component {
         const { user } = this.state
         const { children } = this.props
 
-        return (
-        <UserContext.Provider value={user}>{children}</UserContext.Provider>
-        )
+        return <UserContext.Provider value={user}>{children}</UserContext.Provider>
     }
 }
 

@@ -59,12 +59,11 @@ var firebaseConfig = {
         return getUserDocument(user.uid)
     } 
 
-    export const getUserDocument = async (uid) => {
+    export const getUserDocument = async uid => {
         if (!uid) return null
         try {
-            const userDocument = await firestore.collection('users').doc(uid).get()
+            return firestore.collection('users').doc(uid)
 
-            return { uid, ...userDocument.data()}
         } catch (error) {
             console.error('Error fetching user', error.message)
         }
