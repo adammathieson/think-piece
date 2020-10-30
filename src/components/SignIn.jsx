@@ -17,22 +17,22 @@ class SignIn extends Component {
     // this.setState({ email: '', password: '' });
     const { email, password } = this.state
 
-    // try {
-    //   const { user } = await auth.signInWithEmailAndPassword(email, password)
-    //   console.log('signIn--->', user)
+    try {
+      const { user } = await auth.signInWithEmailAndPassword(email, password)
+      console.log('signIn--->', user)
 
-    //   // getUserDocument(user.uid)
+      // getUserDocument(user.uid)
       
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   render() {
     const { email, password } = this.state;
 
     return (
-      <form className="SignIn" onSubmit={this.handleSubmit}>
+      <form className="SignIn">
         <h2>Sign In</h2>
         <input
           type="email"
@@ -48,7 +48,7 @@ class SignIn extends Component {
           value={password}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Sign In" />
+        <button onClick={this.handleSubmit}>Sign In</button>
         <button onClick={signInWithGoogle}>Sign In With Google</button>
       </form>
     );

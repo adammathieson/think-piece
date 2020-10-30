@@ -26,6 +26,7 @@ class PostPage extends Component {
     unsubscribeFromComments = null
     
     componentDidMount = async () => {
+        console.log(this.postId)
         this.unsubscribeFromPost = this.postRef.onSnapshot(snapshot => {
             const post = collectIdsAndDocs(snapshot)
             this.setState({ post })
@@ -44,15 +45,15 @@ class PostPage extends Component {
     render() {
         const { post, comments } = this.state
         // const { match } = this.props
-        // console.log(this.props)
+        console.log(post)
         return (
             <section>
-                {/* { post && <Post {...post} />}
+                { post && <Post {...post} />}
                 <Comments
                     comments={comments}
-                    postId={post.id}
+                    // postId={post.id}
                     onCreate={() => {}}
-                /> */}
+                />
             </section>
         )
     }
