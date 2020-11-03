@@ -41,18 +41,21 @@ class PostPage extends Component {
         this.unsubscribeFromPost()
         this.unsubscribeFromComments()
     }
+
+    createComment = comment => {
+        console.log(comment)
+    }
     
     render() {
         const { post, comments } = this.state
         // const { match } = this.props
-        console.log(post)
         return (
             <section>
                 { post && <Post {...post} />}
                 <Comments
                     comments={comments}
                     // postId={post.id}
-                    onCreate={() => {}}
+                    onCreate={this.createComment}
                 />
             </section>
         )
