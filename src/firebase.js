@@ -25,10 +25,6 @@ var firebaseConfig = {
     export const signOut = () => auth.signOut()
     export const storage = firebase.storage()
 
-    // breaks when used – – – – –
-    // const settings = { timestampInSnapshots: true }
-    // firestore.settings(settings)
-
     window.firebase = firebase
 
     export const createUserProfileDocument = async (user, additionalData) => {
