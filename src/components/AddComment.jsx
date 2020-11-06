@@ -27,7 +27,11 @@ class AddComment extends Component {
           value={content}
           onChange={this.handleChange}
         />
-        <input className="create" type="submit" value="Create Comment" />
+        <input
+          className="create" 
+          type="submit" 
+          value="Create Comment"
+        />
       </form>
     );
   }
