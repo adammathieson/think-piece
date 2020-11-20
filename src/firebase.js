@@ -53,7 +53,6 @@ var firebaseConfig = {
                 console.error('Error creating user', error.message)
             }
         }
-
         return getUserDocument(user.uid)
     } 
 
